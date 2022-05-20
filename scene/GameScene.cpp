@@ -1,7 +1,7 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
-#include<random>
+#include <random>
 
 using namespace DirectX;
 
@@ -23,7 +23,7 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	//スプライトの生成
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
-	//3Dモデルの生成
+	// 3Dモデルの生成
 	model_ = Model::Create();
 	//乱数シードを生成
 	std::random_device seed_gen;
@@ -40,7 +40,7 @@ void GameScene::Initialize() {
 		worldTransform_[i].scale_ = {1.0f, 1.0f, 1.0f};
 		// X,Y,Z軸周りの回転角を設定
 		// worldTransform_.rotation_ = {0.0f, XM_PI/4.0f, 0.0f};
-		worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine) ,rotDist(engine)};
+		worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine), rotDist(engine)};
 		// X,Y,Z軸周りの平行移動を設定
 		worldTransform_[i].translation_ = {posDist(engine), posDist(engine), posDist(engine)};
 
@@ -49,19 +49,19 @@ void GameScene::Initialize() {
 	}
 
 	//カメラ視点座標を設定
-	//viewProjection_.eye = {0, 0, -10};
+	// viewProjection_.eye = {0, 0, -10};
 
 	//カメラ注視点座標を設定
-	//viewProjection_.target = {10, 0, 0};
+	// viewProjection_.target = {10, 0, 0};
 
 	//カメラ上方向ベクトルの設定(右上45度指定)
-	//viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
+	// viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
 
 	//カメラ垂直方向視野角を設定
-	//viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
+	// viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
 
 	//アスペクト比を設定
-	//viewProjection_.aspectRatio = 1.0f;
+	// viewProjection_.aspectRatio = 1.0f;
 
 	//ニアクリップ距離を設定
 	viewProjection_.nearZ = 52.0f;
@@ -72,30 +72,28 @@ void GameScene::Initialize() {
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 	//サウンドデータの読み込み
-	//soundDateHandle_ = audio_->LoadWave("se_sad03.wav");
+	// soundDateHandle_ = audio_->LoadWave("se_sad03.wav");
 	//音声再生
-	//audio_->PlayWave(soundDateHandle_);
+	// audio_->PlayWave(soundDateHandle_);
 	//音声再生
-	//voiceHandle_ = audio_->PlayWave(soundDateHandle_,true);
-
-
+	// voiceHandle_ = audio_->PlayWave(soundDateHandle_,true);
 }
 
 void GameScene::Update() {
 	//スプライトのいまの座標の取得
-	//XMFLOAT2 position = sprite_->GetPosition();
+	// XMFLOAT2 position = sprite_->GetPosition();
 	//座標を{2.0}移動
-	//position.x += 2.0f;
-	//position.y += 1.0f;
+	// position.x += 2.0f;
+	// position.y += 1.0f;
 	//移動した座標をスプライトに反映
-	//sprite_->SetPosition(position);
+	// sprite_->SetPosition(position);
 	//スペースを押した瞬間
-	//if (input_->TriggerKey(DIK_SPACE)) {
-		//音声停止
-		//audio_->StopWave(voiceHandle_);
+	// if (input_->TriggerKey(DIK_SPACE)) {
+	//音声停止
+	// audio_->StopWave(voiceHandle_);
 	//}
 	//デバッグテキストの表示
-	//debugText_->Print("Kaizokuou ni oreha naru", 50, 50, 1.0f);//
+	// debugText_->Print("Kaizokuou ni oreha naru", 50, 50, 1.0f);//
 	//書式指定付き表示
 	debugText_->SetPos(50, 70);
 	debugText_->Printf("year:%d", 2001);
@@ -103,105 +101,102 @@ void GameScene::Update() {
 	//変数の値をインクリメント
 	value_++;
 	//値を含んだ文字列
-	std::string strDeBug = std::string("Value:") + 
-	std::to_string(value_);
+	std::string strDeBug = std::string("Value:") + std::to_string(value_);
 	//デバッグテキストの表示
 	debugText_->Print(strDeBug, 50, 50, 1.0f);
 
 	//視点移動処理
 	//{
-		//視点移動ベクトル
-		XMFLOAT3 move = {0, 0, 0};
+	//視点移動ベクトル
+	XMFLOAT3 move = {0, 0, 0};
 
-		//視点移動の速さ
-		//const float kEyeSpeed = 0.2f;
+	//視点移動の速さ
+	// const float kEyeSpeed = 0.2f;
 
-		//押した方向で移動ベクトルを変更
-		//if (input_->PushKey(DIK_W)) {
-			//move = {0, 0, kEyeSpeed};
-		//}else if (input_->PushKey(DIK_S)) {
-			//move = {0, 0, -kEyeSpeed};
-		//}
+	//押した方向で移動ベクトルを変更
+	// if (input_->PushKey(DIK_W)) {
+	// move = {0, 0, kEyeSpeed};
+	//}else if (input_->PushKey(DIK_S)) {
+	// move = {0, 0, -kEyeSpeed};
+	//}
 
-		//視点移動(ベクトルの加算)
-		//viewProjection_.eye.x += move.x;
-		//viewProjection_.eye.y += move.y;
-		//viewProjection_.eye.z += move.z;
+	//視点移動(ベクトルの加算)
+	// viewProjection_.eye.x += move.x;
+	// viewProjection_.eye.y += move.y;
+	// viewProjection_.eye.z += move.z;
 
-		//行列の再計算
-		//viewProjection_.UpdateMatrix();
+	//行列の再計算
+	// viewProjection_.UpdateMatrix();
 
-		//デバッグ用表示
-		//debugText_->SetPos(50, 50);
-		//debugText_->Print(
-		  //"eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
+	//デバッグ用表示
+	// debugText_->SetPos(50, 50);
+	// debugText_->Print(
+	//"eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
 	//}
 
 	//注視点移動処理
 	//{
-		//注視点移動ベクトル
-		//XMFLOAT3 move = {0, 0, 0};
-		
-		//注視点移動の速さ
-		const float kTargetSpeed = 0.2f;
+	//注視点移動ベクトル
+	// XMFLOAT3 move = {0, 0, 0};
 
-		//押した方向で移動ベクトルを変更
-		//if (input_->PushKey(DIK_LEFT)) {
-			//move = {-kTargetSpeed,0,0};
-		//} else if (input_->PushKey(DIK_RIGHT)) {
-			//move = {kTargetSpeed,0,0};
-		//}
+	//注視点移動の速さ
+	const float kTargetSpeed = 0.2f;
 
-		//視点移動(ベクトルの加算)
-		//viewProjection_.target.x += move.x;
-		//viewProjection_.target.y += move.y;
-		//viewProjection_.target.z += move.z;
+	//押した方向で移動ベクトルを変更
+	// if (input_->PushKey(DIK_LEFT)) {
+	// move = {-kTargetSpeed,0,0};
+	//} else if (input_->PushKey(DIK_RIGHT)) {
+	// move = {kTargetSpeed,0,0};
+	//}
 
-		//行列の再計算
-		//viewProjection_.UpdateMatrix();
+	//視点移動(ベクトルの加算)
+	// viewProjection_.target.x += move.x;
+	// viewProjection_.target.y += move.y;
+	// viewProjection_.target.z += move.z;
 
-		//デバッグ用表示
-		//debugText_->SetPos(50, 70);
-		//debugText_->Print(
-		  //"target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y, viewProjection_.target.z);
+	//行列の再計算
+	// viewProjection_.UpdateMatrix();
+
+	//デバッグ用表示
+	// debugText_->SetPos(50, 70);
+	// debugText_->Print(
+	//"target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y,
+	//viewProjection_.target.z);
 	//}
 
 	//上方向回転処理
-	//{ 
-		//上方向の回転速さ[ラジアン/frame]
-		//const float kUpRotSpeed = 0.05f;
+	//{
+	//上方向の回転速さ[ラジアン/frame]
+	// const float kUpRotSpeed = 0.05f;
 
-		//押した方向で移動ベクトルを変更
-		//if (input_->PushKey(DIK_SPACE)) {
-			//viewAngle += kUpRotSpeed;
-			//2πを超えたら0に戻す
-			//viewAngle = fmodf(viewAngle, XM_2PI);
-		//}
+	//押した方向で移動ベクトルを変更
+	// if (input_->PushKey(DIK_SPACE)) {
+	// viewAngle += kUpRotSpeed;
+	// 2πを超えたら0に戻す
+	// viewAngle = fmodf(viewAngle, XM_2PI);
+	//}
 
-		//上方向ベクトルの計算(半径1の円周上の座標)
-		//viewProjection_.up = {cosf(viewAngle), sinf(viewAngle), 0.0f};
+	//上方向ベクトルの計算(半径1の円周上の座標)
+	// viewProjection_.up = {cosf(viewAngle), sinf(viewAngle), 0.0f};
 
-
-		
-	//Fov変更処理
+	// Fov変更処理
 	{
-		//Wキーで視野角が広がる
+		// Wキーで視野角が広がる
 		if (input_->PushKey(DIK_W)) {
 			viewProjection_.fovAngleY += 0.01f;
 			viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, XM_PI);
-		//Sキーで視野角を狭まる
+			// Sキーで視野角を狭まる
 		} else if (input_->PushKey(DIK_S)) {
 			viewProjection_.fovAngleY -= 0.01f;
 			viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
 		}
 	}
-		//行列の再計算
+	//行列の再計算
 	viewProjection_.UpdateMatrix();
 
 	//デバッグ用表示
-	 debugText_->SetPos(50, 110);
-	 debugText_->Printf(
-	"fovAngle(Degree):%f",XMConvertToDegrees(viewProjection_.fovAngleY));
+	debugText_->SetPos(50, 110);
+	debugText_->Printf("fovAngle(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
 	//クリップ距離変更処理
 	{
 		//上下キーでニアクリップ距離を増減
@@ -210,7 +205,6 @@ void GameScene::Update() {
 		} else if (input_->PushKey(DIK_DOWN)) {
 			viewProjection_.nearZ -= 0.1f;
 		}
-
 	}
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
@@ -246,7 +240,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	//3Dモデル描画
+	// 3Dモデル描画
 	for (size_t i = 0; i < _countof(worldTransform_); i++) {
 		model_->Draw(worldTransform_[i], viewProjection_, textureHandle_);
 	}
@@ -261,8 +255,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	//sprite_->Draw();
-	// デバッグテキストの描画
+	// sprite_->Draw();
+	//  デバッグテキストの描画
 	debugText_->DrawAll(commandList);
 	//
 	// スプライト描画後処理
